@@ -13,7 +13,8 @@ __npm i tmdb-api__ - that's it, really
 ## Examples ##
 A TypeScript example: 
 
-```import { api, TMDBExternalSources } from './functions/api'
+'''
+import { api, TMDBExternalSources } from './functions/api'
 import * as assert from 'assert'
 
 
@@ -29,9 +30,10 @@ async function main() {
       .useProxy(proxy)
       .find(TMDBExternalSources.imdb)
       .byId(id)
-      
+
     console.log(JSON.stringify(res, null, 2))
   } catch (err) {
     console.error(err)
   }
-}```
+}
+'''
