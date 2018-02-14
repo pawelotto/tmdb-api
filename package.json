@@ -1,5 +1,5 @@
 {
-  "name": "tmdb-api",
+  "name": "tmdb-api-wrapper",
   "private": false,
   "version": "1.0.0",
   "description": "Functional, async wrapper around TMdB API v3 written in TypeScript.",
