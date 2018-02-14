@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
-import * as assert from 'assert'
 import { URL } from 'url'
 import { download } from './download'
 
