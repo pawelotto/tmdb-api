@@ -1,0 +1,29 @@
+{
+  "name": "tmdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/moviengine/tmdb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/moviengine/tmdb#readme",
+  "dependencies": {
+    "@types/assert": "0.0.31",
+    "@types/dotenv": "^4.0.2",
+    "@types/request": "^2.47.0",
+    "@types/request-promise": "^4.1.41",
+    "assert": "^1.4.1",
+    "dotenv": "^5.0.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
+}
