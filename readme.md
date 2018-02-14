@@ -13,7 +13,7 @@ __npm i tmdb-api__ - that's it, really
 ## Examples ##
 A TypeScript example: 
 
-
+```javascript
 import { api, TMDBExternalSources } from './functions/api'
 import * as assert from 'assert'
 
@@ -35,4 +35,4 @@ async function main() {
   } catch (err) {
     console.error(err)
   }
-}
+}```
