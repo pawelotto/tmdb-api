@@ -4,68 +4,78 @@ import * as assert from 'assert'
 import { URL } from 'url'
 import { download } from './download'
 
-export function api(apiKey?: string, proxyUrl?: string) {
-  const apiRoot = process.env.NODE_MOVIENGINE_TMDB_API_ROOT
-  apiKey = apiKey || process.env.NODE_MOVIENGINE_TMDB_API_KEY
-  assert.ok(apiRoot && apiKey, "NODE_MOVIENGINE_TMDB_API_ROOT or NODE_MOVIENGINE_TMDB_API_KEY not defined in your env")
-  proxyUrl = proxyUrl || process.env.NODE_MOVIENGINE_TMDB_API_PROXY
-  assert.ok(proxyUrl, "Proxy must be defined in either env or as function argument, check NODE_MOVIENGINE_TMDB_API_PROXY")
-
+export function api(apiKey: string) {
+  const apiRoot: string = 'https://api.themoviedb.org/3/'
+  let proxy: string
+  const _api = this
 
   return {
-    async findByImdbId(imdbId: string) {
-      try {
-        const url = apiUrl(apiRoot)
-          .applyMethod(TMDBApiMethods.find)
-          .applyExternalId(imdbId)
-          .applyApiKey(apiKey)
-          .applyExternalSource(TMDBExternalSources.imdb)
-          .get()
 
-        // console.log(url)
-        const res = await download(url).proxy(proxyUrl)
-        console.log(res)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-  }
+    useProxy(proxyUrl: string) {
+      proxy = proxyUrl
+      return this
+    },
 
-  function apiUrl(rootUrl: string) {
-    let uri = new URL(rootUrl)
-    return {
-      applyMethod(method: TMDBApiMethods) {
-        const _this = this
-        uri.pathname += method
-        return {
-          applyExternalId(id: string) {
-            uri.pathname += '/' + id
-            return _this
+    find(externalSource: TMDBExternalSources) {
+      let url = apiUrl(apiRoot).applyExternalSource(externalSource)
+      return {
+        async byId(id: string) {
+          try {
+            const url = apiUrl(apiRoot)
+              .applyMethod(TMDBApiMethods.find)
+              .applyExternalId(id)
+              .applyExternalSource(externalSource)
+              .applyApiKey(apiKey)
+              .get()
+            const downloader = download(url, true)
+            return proxy ? await downloader.proxy(proxy) : await downloader.noProxy()
+          } catch (err) {
+            console.error(err)
           }
         }
-      },
-
-      applyExternalSource(externalSource: TMDBExternalSources) {
-        uri.searchParams.append('external_source', externalSource)
-        return this
-      },
-
-      applyApiKey(apiKey: string) {
-        uri.searchParams.append('api_key', apiKey)
-        return this
-      },
-
-      get() {
-        return uri.toString()
       }
     }
   }
 }
 
-enum TMDBExternalSources {
-  imdb = 'imdb_id'
+function apiUrl(rootUrl: string) {
+  let uri = new URL(rootUrl)
+  return {
+    applyMethod(method: TMDBApiMethods) {
+      const _this = this
+      uri.pathname += method
+      return {
+        applyExternalId(id: string) {
+          uri.pathname += '/' + id
+          return _this
+        }
+      }
+    },
+
+    applyExternalSource(externalSource: TMDBExternalSources) {
+      uri.searchParams.append('external_source', externalSource)
+      return this
+    },
+
+    applyApiKey(apiKey: string) {
+      uri.searchParams.append('api_key', apiKey)
+      return this
+    },
+
+    get() {
+      return uri.toString()
+    }
+  }
 }
 
-enum TMDBApiMethods {
+export enum TMDBExternalSources {
+  imdb = 'imdb_id',
+  freebase = 'freebase_id',
+  tvdb = 'tvdb_id',
+  tvrage = 'tvrage_id'
+
+}
+
+export enum TMDBApiMethods {
   find = 'find'
 }

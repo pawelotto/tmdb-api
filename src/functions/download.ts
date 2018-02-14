@@ -2,7 +2,7 @@ import * as request from 'request-promise'
 
 export function download(url: string, json?: boolean){
   let opts = {
-    timeout: 5000,
+    timeout: 10000,
     method: 'GET',
     url: url,
     json: json

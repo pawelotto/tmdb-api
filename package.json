@@ -1,7 +1,7 @@
 {
   "name": "tmdb",
   "version": "1.0.0",
-  "description": "",
+  "description": "A fully functional tmdb API v3 wrapper with proxy support.",
   "main": "dist/index.js",
   "types": "src/index.ts",
   "scripts": {
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/moviengine/tmdb.git"
+    "url": "git+https://github.com/pawelotto/tmdb-api.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [ "api", "tmdb" ],
+  "author": "Paweł Otto",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/moviengine/tmdb#readme",
+  "homepage": "https://github.com/pawelotto/tmdb-api#readme",
   "dependencies": {
     "@types/assert": "0.0.31",
     "@types/dotenv": "^4.0.2",

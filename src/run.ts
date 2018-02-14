@@ -1,14 +1,19 @@
 import { download } from './functions/download'
-import { api } from './functions/api'
+import { api, TMDBExternalSources } from './functions/api'
+import * as assert from 'assert'
+
 
 main()
-async function main(){
+async function main() {
   try {
-    await api().findByImdbId('nm0000001')
+    const apiKey = process.env.NODE_TMDB_API_KEY
+    assert.ok(apiKey, "NODE_TMDB_API_KEY not defined in your env! Giving up.")
+    const proxy = process.env.NODE_TMDB_API_PROXY
+
+    const id = "nm0000003"
+    const res = await api(apiKey).useProxy(proxy).find(TMDBExternalSources.imdb).byId(id)
+    console.log(JSON.stringify(res, null, 2))
   } catch (err) {
     console.error(err)
   }
-  // const res = await download('https://fitnesi.pl/').proxy('tensor:8118')
-  // const res = await download('https://iplogger.org/myip/').proxy('http://tensor:8118')
-  // console.log(res)
 }
