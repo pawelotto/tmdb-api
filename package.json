@@ -1,7 +1,8 @@
 {
-  "name": "tmdb",
+  "name": "tmdb-api",
+  "private": false,
   "version": "1.0.0",
-  "description": "A fully functional tmdb API v3 wrapper with proxy support.",
+  "description": "Functional, async wrapper around TMdB API v3 written in TypeScript.",
   "main": "dist/index.js",
   "types": "src/index.ts",
   "scripts": {
